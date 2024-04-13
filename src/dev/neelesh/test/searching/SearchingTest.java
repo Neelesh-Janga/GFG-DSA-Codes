@@ -1,6 +1,6 @@
 package dev.neelesh.test.searching;
 
-import dev.neelesh.main.searching.Searching;
+import dev.neelesh.main.topic.searching.Searching;
 import dev.neelesh.main.util.ExecutionType;
 import dev.neelesh.main.util.SearchType;
 import dev.neelesh.main.exception.UnsupportedSearchOpeartionException;

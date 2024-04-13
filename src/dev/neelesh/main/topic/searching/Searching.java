@@ -1,4 +1,4 @@
-package dev.neelesh.main.searching;
+package dev.neelesh.main.topic.searching;
 
 import dev.neelesh.main.util.ExecutionType;
 import dev.neelesh.main.util.SearchType;
