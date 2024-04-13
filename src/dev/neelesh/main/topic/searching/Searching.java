@@ -23,6 +23,11 @@ public class Searching implements SearchingTemplate {
         return getFirstOccurrenceBinarySearch(arr, number, executionType);
     }
 
+    @Override
+    public int getIndexOfLastOccurrence(int[] arr, int number, ExecutionType executionType) {
+        return getLastOccurrenceBinarySearch(arr, number, executionType);
+    }
+
     private int binarySearch(int[] arr, int number, ExecutionType executionType) {
         int low = 0, high = arr.length - 1, mid = low + (high - low) / 2;
 
@@ -97,6 +102,42 @@ public class Searching implements SearchingTemplate {
             else {
                 if (mid == 0 || arr[mid - 1] != arr[mid]) return mid;
                 else return getFirstOccurrenceBinarySearchUsingRecursion(arr, low, mid - 1, number);
+            }
+        }
+    }
+
+    private int getLastOccurrenceBinarySearch(int[] arr, int number, ExecutionType executionType) {
+        int low = 0, high = arr.length - 1, mid = low + (high - low) / 2;
+
+        if (executionType == ExecutionType.RECURSIVE)
+            return getLastOccurrenceBinarySearchUsingRecursion(arr, low, high, number);
+
+        while (low <= high) {
+            if (number < arr[mid]) high = mid - 1;
+            else if (number > arr[mid]) low = mid + 1;
+            else {
+                if (mid == arr.length - 1) return mid;
+                return getLastIndex(arr, number, mid);
+            }
+            mid = low + (high - low) / 2;
+        }
+        return -1;
+    }
+
+    private int getLastIndex(int[] arr, int number, int index) {
+        while (index < arr.length && arr[index] == arr[index + 1]) index++;
+        return index == arr.length ? index - 1 : index;
+    }
+
+    private int getLastOccurrenceBinarySearchUsingRecursion(int[] arr, int low, int high, int number) {
+        if (low > high) return -1;
+        else {
+            int mid = low + (high - low) / 2;
+            if (number < arr[mid]) return getLastOccurrenceBinarySearchUsingRecursion(arr, low, mid - 1, number);
+            else if (number > arr[mid]) return getLastOccurrenceBinarySearchUsingRecursion(arr, mid + 1, high, number);
+            else {
+                if (mid == arr.length - 1 || arr[mid] != arr[mid + 1]) return mid;
+                else return getLastOccurrenceBinarySearchUsingRecursion(arr, mid + 1, high, number);
             }
         }
     }

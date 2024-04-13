@@ -10,6 +10,7 @@ class SearchingTest {
     public static void main(String[] args) throws Exception {
         testGetIndexOfNumber();
         testGetFirstOccurrenceBinarySearch();
+        testGetLastOccurrenceBinarySearch();
     }
 
     static void testGetIndexOfNumber() throws Exception {
@@ -62,5 +63,23 @@ class SearchingTest {
         assert searchService.getIndexOfFirstOccurrence(arr, 5, ExecutionType.RECURSIVE) == 6;
 
         System.out.println("testGetFirstOccurrenceBinarySearch(): All test cases passed successfully.");
+    }
+
+    static void testGetLastOccurrenceBinarySearch() {
+        Searching searchService = new Searching();
+        int[] arr = {1, 2, 2, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9};
+
+        assert searchService.getIndexOfLastOccurrence(arr, 2, ExecutionType.ITERATIVE) == 3;
+        assert searchService.getIndexOfLastOccurrence(arr, 2, ExecutionType.RECURSIVE) == 3;
+        assert searchService.getIndexOfLastOccurrence(arr, 1, ExecutionType.ITERATIVE) == 0;
+        assert searchService.getIndexOfLastOccurrence(arr, 1, ExecutionType.RECURSIVE) == 0;
+        assert searchService.getIndexOfLastOccurrence(arr, 9, ExecutionType.ITERATIVE) == 12;
+        assert searchService.getIndexOfLastOccurrence(arr, 9, ExecutionType.RECURSIVE) == 12;
+        assert searchService.getIndexOfLastOccurrence(arr, 0, ExecutionType.ITERATIVE) == -1;
+        assert searchService.getIndexOfLastOccurrence(arr, 0, ExecutionType.RECURSIVE) == -1;
+        assert searchService.getIndexOfLastOccurrence(arr, 5, ExecutionType.ITERATIVE) == 8;
+        assert searchService.getIndexOfLastOccurrence(arr, 5, ExecutionType.RECURSIVE) == 8;
+
+        System.out.println("testGetLastOccurrenceBinarySearch(): All test cases passed successfully.");
     }
 }

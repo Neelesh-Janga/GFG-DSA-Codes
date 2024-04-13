@@ -8,4 +8,6 @@ public interface SearchingTemplate {
     int getIndexOfNumber(int[] arr, int number, SearchType searchType, ExecutionType executionType) throws UnsupportedSearchOpeartionException;
 
     int getIndexOfFirstOccurrence(int[] arr, int number, ExecutionType executionType);
+
+    int getIndexOfLastOccurrence(int[] arr, int number, ExecutionType executionType);
 }
