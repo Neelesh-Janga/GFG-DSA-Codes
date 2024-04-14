@@ -7,14 +7,12 @@ import dev.neelesh.main.exception.UnsupportedSearchOpeartionException;
 public class Searching implements SearchingTemplate {
 
     @Override
-    public int getIndexOfNumber(int[] arr, int number, SearchType searchType, ExecutionType executionType)
-            throws UnsupportedSearchOpeartionException {
+    public int getIndexOfNumber(int[] arr, int number, SearchType searchType, ExecutionType executionType) throws UnsupportedSearchOpeartionException {
         return switch (searchType) {
             case LINEAR -> linearSearch(arr, number, executionType);
             case BINARY -> binarySearch(arr, number, executionType);
-            default -> throw new UnsupportedSearchOpeartionException(
-                    String.format("Search operation, %s, is not supported.", searchType)
-            );
+            default ->
+                    throw new UnsupportedSearchOpeartionException(String.format("Search operation, %s, is not supported.", searchType));
         };
     }
 
@@ -26,6 +24,11 @@ public class Searching implements SearchingTemplate {
     @Override
     public int getIndexOfLastOccurrence(int[] arr, int number, ExecutionType executionType) {
         return getLastOccurrenceBinarySearch(arr, number, executionType);
+    }
+
+    @Override
+    public int getNumberOfOccurrences(int[] arr, int number, ExecutionType executionType) {
+        return getNumberOfOccurrencesUsingBinarySearch(arr, number, executionType);
     }
 
     private int binarySearch(int[] arr, int number, ExecutionType executionType) {
@@ -80,14 +83,14 @@ public class Searching implements SearchingTemplate {
             if (number < arr[mid]) high = mid - 1;
             else if (number > arr[mid]) low = mid + 1;
             else {
-                return getFirstIndex(arr, number, mid);
+                return getFirstIndex(arr, mid);
             }
             mid = low + (high - low) / 2;
         }
         return -1;
     }
 
-    private int getFirstIndex(int[] arr, int number, int index) {
+    private int getFirstIndex(int[] arr, int index) {
         if (index == 0 || arr[index] != arr[index - 1]) return index;
         while (index > 0 && arr[index] == arr[index - 1]) index--;
         return index;
@@ -117,14 +120,14 @@ public class Searching implements SearchingTemplate {
             else if (number > arr[mid]) low = mid + 1;
             else {
                 if (mid == arr.length - 1) return mid;
-                return getLastIndex(arr, number, mid);
+                return getLastIndex(arr, mid);
             }
             mid = low + (high - low) / 2;
         }
         return -1;
     }
 
-    private int getLastIndex(int[] arr, int number, int index) {
+    private int getLastIndex(int[] arr, int index) {
         while (index < arr.length && arr[index] == arr[index + 1]) index++;
         return index == arr.length ? index - 1 : index;
     }
@@ -140,5 +143,26 @@ public class Searching implements SearchingTemplate {
                 else return getLastOccurrenceBinarySearchUsingRecursion(arr, mid + 1, high, number);
             }
         }
+    }
+
+    private int getNumberOfOccurrencesUsingBinarySearch(int[] arr, int number, ExecutionType executionType) {
+        int low = 0, high = arr.length - 1;
+        int firstIndex, lastIndex;
+
+        if (executionType == ExecutionType.RECURSIVE)
+            return getNumberOfOccurrencesUsingRecursiveBinarySearch(arr, low, high, number);
+
+        firstIndex = getFirstOccurrenceBinarySearchUsingRecursion(arr, low, high, number);
+        if (firstIndex == -1) return -1;
+        lastIndex = getLastOccurrenceBinarySearchUsingRecursion(arr, low, high, number);
+        return lastIndex - firstIndex + 1;
+    }
+
+    private int getNumberOfOccurrencesUsingRecursiveBinarySearch(int[] arr, int low, int high, int number) {
+        int firstIndex = getFirstOccurrenceBinarySearchUsingRecursion(arr, low, high, number);
+        int lastIndex;
+        if (firstIndex == -1) return -1;
+        lastIndex = getLastOccurrenceBinarySearchUsingRecursion(arr, low, high, number);
+        return lastIndex - firstIndex + 1;
     }
 }

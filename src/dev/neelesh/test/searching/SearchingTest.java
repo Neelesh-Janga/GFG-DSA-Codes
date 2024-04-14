@@ -8,9 +8,10 @@ import dev.neelesh.main.exception.UnsupportedSearchOpeartionException;
 class SearchingTest {
 
     public static void main(String[] args) throws Exception {
-        testGetIndexOfNumber();
-        testGetFirstOccurrenceBinarySearch();
-        testGetLastOccurrenceBinarySearch();
+//        testGetIndexOfNumber();
+//        testGetFirstOccurrenceBinarySearch();
+//        testGetLastOccurrenceBinarySearch();
+        testGetNumberOfOccurrences();
     }
 
     static void testGetIndexOfNumber() throws Exception {
@@ -81,5 +82,21 @@ class SearchingTest {
         assert searchService.getIndexOfLastOccurrence(arr, 5, ExecutionType.RECURSIVE) == 8;
 
         System.out.println("testGetLastOccurrenceBinarySearch(): All test cases passed successfully.");
+    }
+
+    static void testGetNumberOfOccurrences() {
+        Searching searchService = new Searching();
+        int[] arr = {1, 2, 2, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9};
+
+        assert searchService.getNumberOfOccurrences(arr, 2, ExecutionType.ITERATIVE) == 3;
+        assert searchService.getNumberOfOccurrences(arr, 2, ExecutionType.RECURSIVE) == 3;
+        assert searchService.getNumberOfOccurrences(arr, 1, ExecutionType.ITERATIVE) == 1;
+        assert searchService.getNumberOfOccurrences(arr, 1, ExecutionType.RECURSIVE) == 1;
+        assert searchService.getNumberOfOccurrences(arr, 10, ExecutionType.ITERATIVE) == -1;
+        assert searchService.getNumberOfOccurrences(arr, 10, ExecutionType.RECURSIVE) == -1;
+        assert searchService.getNumberOfOccurrences(arr, 5, ExecutionType.ITERATIVE) == 3;
+        assert searchService.getNumberOfOccurrences(arr, 5, ExecutionType.RECURSIVE) == 3;
+
+        System.out.println("testGetNumberOfOccurrences(): All test cases passed successfully.");
     }
 }

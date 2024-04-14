@@ -10,4 +10,6 @@ public interface SearchingTemplate {
     int getIndexOfFirstOccurrence(int[] arr, int number, ExecutionType executionType);
 
     int getIndexOfLastOccurrence(int[] arr, int number, ExecutionType executionType);
+
+    int getNumberOfOccurrences(int[] arr, int number, ExecutionType executionType);
 }
