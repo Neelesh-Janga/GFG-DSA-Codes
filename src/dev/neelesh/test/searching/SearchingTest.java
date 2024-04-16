@@ -8,10 +8,11 @@ import dev.neelesh.main.exception.UnsupportedSearchOpeartionException;
 class SearchingTest {
 
     public static void main(String[] args) throws Exception {
-//        testGetIndexOfNumber();
-//        testGetFirstOccurrenceBinarySearch();
-//        testGetLastOccurrenceBinarySearch();
+        testGetIndexOfNumber();
+        testGetFirstOccurrenceBinarySearch();
+        testGetLastOccurrenceBinarySearch();
         testGetNumberOfOccurrences();
+        testSquareRoot();
     }
 
     static void testGetIndexOfNumber() throws Exception {
@@ -98,5 +99,30 @@ class SearchingTest {
         assert searchService.getNumberOfOccurrences(arr, 5, ExecutionType.RECURSIVE) == 3;
 
         System.out.println("testGetNumberOfOccurrences(): All test cases passed successfully.");
+    }
+
+    static void testSquareRoot() throws UnsupportedSearchOpeartionException {
+        Searching searchService = new Searching();
+
+        assert searchService.computeSquareRoot(16, ExecutionType.ITERATIVE) == 4;
+        assert searchService.computeSquareRoot(16, ExecutionType.RECURSIVE) == 4;
+        assert searchService.computeSquareRoot(10, ExecutionType.ITERATIVE) == 3;
+        assert searchService.computeSquareRoot(10, ExecutionType.RECURSIVE) == 3;
+        assert searchService.computeSquareRoot(0, ExecutionType.ITERATIVE) == 0;
+        assert searchService.computeSquareRoot(0, ExecutionType.RECURSIVE) == 0;
+        assert searchService.computeSquareRoot(1, ExecutionType.ITERATIVE) == 1;
+        assert searchService.computeSquareRoot(1, ExecutionType.RECURSIVE) == 1;
+        assert searchService.computeSquareRoot(1000000, ExecutionType.ITERATIVE) == 1000;
+        assert searchService.computeSquareRoot(1000000, ExecutionType.RECURSIVE) == 1000;
+        assert searchService.computeSquareRoot(999999, ExecutionType.ITERATIVE) == 999;
+        assert searchService.computeSquareRoot(999999, ExecutionType.RECURSIVE) == 999;
+
+        try {
+            searchService.computeSquareRoot(-1, ExecutionType.ITERATIVE);
+            System.out.println("Test failed: UnsupportedSearchOpeartionException expected but not thrown");
+        } catch (UnsupportedSearchOpeartionException e) {
+            System.out.println("Test passed: UnsupportedSearchOpeartionException thrown as expected");
+            System.out.println("testSquareRoot(): All test cases passed successfully.");
+        }
     }
 }

@@ -12,4 +12,6 @@ public interface SearchingTemplate {
     int getIndexOfLastOccurrence(int[] arr, int number, ExecutionType executionType);
 
     int getNumberOfOccurrences(int[] arr, int number, ExecutionType executionType);
+
+    int computeSquareRoot(int number, ExecutionType executionType) throws UnsupportedSearchOpeartionException;
 }

@@ -31,6 +31,14 @@ public class Searching implements SearchingTemplate {
         return getNumberOfOccurrencesUsingBinarySearch(arr, number, executionType);
     }
 
+    @Override
+    public int computeSquareRoot(int number, ExecutionType executionType) throws UnsupportedSearchOpeartionException {
+        if (number < 0)
+            throw new UnsupportedSearchOpeartionException("Couldn't perform square root operation on negative numbers.");
+        if (number == 0) return 0;
+        return squareRoot(number, executionType);
+    }
+
     private int binarySearch(int[] arr, int number, ExecutionType executionType) {
         int low = 0, high = arr.length - 1, mid = low + (high - low) / 2;
 
@@ -164,5 +172,40 @@ public class Searching implements SearchingTemplate {
         if (firstIndex == -1) return -1;
         lastIndex = getLastOccurrenceBinarySearchUsingRecursion(arr, low, high, number);
         return lastIndex - firstIndex + 1;
+    }
+
+    private int squareRoot(int number, ExecutionType executionType) {
+        int ans = 0, low = 0, high = number, mid = low + (high - low) / 2;
+
+        if (executionType == ExecutionType.RECURSIVE) return recursiveSquareRoot(low, high, number, ans);
+
+        while (low <= high) {
+            long square = (long) mid * mid;
+            if (square < number) {
+                ans = mid;
+                low = mid + 1;
+            } else if (square == number) {
+                return mid;
+            } else {
+                high = mid - 1;
+            }
+            mid = low + (high - low) / 2;
+        }
+        return ans;
+    }
+
+    private int recursiveSquareRoot(int low, int high, int number, int ans) {
+        if (low > high) return ans;
+        else {
+            int mid = low + (high - low) / 2;
+            long square = (long) mid * mid;
+            if (square < number) {
+                ans = recursiveSquareRoot(mid + 1, high, number, mid);
+            } else if (square == number) return mid;
+            else {
+                ans = recursiveSquareRoot(low, mid - 1, number, ans);
+            }
+        }
+        return ans;
     }
 }
